@@ -8,7 +8,7 @@ void Error::setLine(int line) noexcept {
   _line = line;
 }
 
-const std::string& Error::getFile() const {
+const std::string &Error::getFile() const {
   return _file;
 }
 

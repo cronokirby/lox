@@ -1,5 +1,6 @@
 BasedOnStyle: LLVM
 IndentWidth: 2
-AllowShortFunctionsOnASingleLine: false
-AllowShortBlocksOnASingleLine: false
-AllowShortIfStatementsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: None
+AllowShortBlocksOnASingleLine: Never
+BreakConstructorInitializers: BeforeComma
+
