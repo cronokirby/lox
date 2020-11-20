@@ -2,6 +2,8 @@
 
 #include <utility>
 
+namespace lexer {
+
 Token::Token(TokenType type, std::string lexeme, int line) noexcept
     : type{type}
     , lexeme{std::move(lexeme)}
@@ -21,3 +23,5 @@ Token::Token(TokenType type, std::string lexeme, int line,
     , line{line}
     , token_data{std::move(string_data)} {
 }
+
+} // namespace lexer

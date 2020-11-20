@@ -2,6 +2,7 @@
 #include <string>
 #include <variant>
 
+namespace lexer {
 /// Represents the type a given token has.
 ///
 /// This basically distinguishes the syntactic category something is,
@@ -66,6 +67,10 @@ struct Token {
   std::variant<std::string, double> token_data;
 
   Token(TokenType type, std::string lexeme, int line) noexcept;
-  Token(TokenType type, std::string lexeme, int line, double double_data) noexcept;
-  Token(TokenType type, std::string lexeme, int line, std::string string_data) noexcept;
+  Token(TokenType type, std::string lexeme, int line,
+        double double_data) noexcept;
+  Token(TokenType type, std::string lexeme, int line,
+        std::string string_data) noexcept;
 };
+
+} // namespace lexer

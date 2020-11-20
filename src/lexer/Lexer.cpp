@@ -1,6 +1,9 @@
 #include "Lexer.hpp"
+#include "UnexpectedCharacter.hpp"
 
-Lexer::Lexer(std::string source, const ErrorReporter &reporter) noexcept
+namespace lexer {
+
+Lexer::Lexer(std::string source, ErrorReporter &reporter) noexcept
     : source(std::move(source))
     , reporter(reporter) {
 }
@@ -68,9 +71,12 @@ void Lexer::scanToken() noexcept {
     addToken(TokenType::Star);
     break;
   }
-
-  default:
+  default: {
+    UnexpectedCharacter error{c};
+    error.setLine(line);
+    reporter.report(error);
     break;
+  }
   }
 }
 
@@ -82,3 +88,5 @@ std::vector<Token> Lexer::scanTokens() noexcept {
   tokens.emplace_back(Token{TokenType::EndOfFile, "", line});
   return tokens;
 }
+
+} // namespace lexer

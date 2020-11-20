@@ -4,11 +4,13 @@
 #include <string>
 #include <vector>
 
+namespace lexer {
+
 /// Represents a Lexer, which produces tokens by looking over a given string
 class Lexer {
   std::string source;
   std::vector<Token> tokens;
-  const ErrorReporter &reporter;
+  ErrorReporter &reporter;
 
   size_t start{0};
   size_t current{0};
@@ -25,7 +27,9 @@ class Lexer {
   void scanToken() noexcept;
 
 public:
-  Lexer(std::string source, const ErrorReporter &reporter) noexcept;
+  Lexer(std::string source, ErrorReporter &reporter) noexcept;
 
   std::vector<Token> scanTokens() noexcept;
 };
+
+} // namespace lexer

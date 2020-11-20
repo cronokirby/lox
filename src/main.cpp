@@ -24,6 +24,8 @@ std::string readFile(const char *file) {
 }
 
 void run(const std::string &source, ErrorReporter &reporter) {
+  using lexer::Lexer;
+
   Lexer lexer{source, reporter};
   for (const auto &token : lexer.scanTokens()) {
     std::cout << token.lexeme << '\n';
