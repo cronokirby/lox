@@ -22,6 +22,8 @@ class Lexer {
 
   char peek() noexcept;
 
+  char peekNext() noexcept;
+
   bool match(char) noexcept;
 
   void addToken(TokenType) noexcept;
@@ -29,6 +31,8 @@ class Lexer {
   void addToken(TokenType, std::string) noexcept;
 
   void string() noexcept;
+
+  void number() noexcept;
 
   void scanToken() noexcept;
 

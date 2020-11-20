@@ -25,6 +25,13 @@ char Lexer::peek() noexcept {
   return source[current];
 }
 
+char Lexer::peekNext() noexcept {
+  if (current + 1 >= source.size()) {
+    return '\0';
+  }
+  return source[current + 1];
+}
+
 bool Lexer::match(char expected) noexcept {
   if (isAtEnd()) {
     return false;
@@ -71,6 +78,24 @@ void Lexer::string() noexcept {
   // We make sure to exclude the string delimiters
   const auto text = source.substr(start + 1, current - start - 1);
   addToken(TokenType::String, text);
+}
+
+static constexpr bool isDigit(char c) {
+  return c >= '0' && c <= '9';
+}
+
+void Lexer::number() noexcept {
+  while (isDigit(peek())) {
+    advance();
+  }
+  if (peek() == '.' && isDigit(peekNext())) {
+    advance();
+    while (isDigit(peek())) {
+      advance();
+    }
+  }
+  const auto text = source.substr(start, current - start);
+  addToken(TokenType::Number, std::stod(text));
 }
 
 void Lexer::scanToken() noexcept {
@@ -153,9 +178,14 @@ void Lexer::scanToken() noexcept {
     break;
   }
   default: {
-    UnexpectedCharacter error{c};
-    error.setLine(line);
-    reporter.report(error);
+    if (isDigit(c)) {
+      number();
+    } else {
+      UnexpectedCharacter error{c};
+      error.setLine(line);
+      reporter.report(error);
+    }
+
     break;
   }
   }
