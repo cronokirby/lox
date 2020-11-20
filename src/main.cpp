@@ -1,5 +1,6 @@
 #include "ErrorReporter.hpp"
 #include "SimpleError.h"
+#include "lexer/Lexer.hpp"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -23,8 +24,10 @@ std::string readFile(const char *file) {
 }
 
 void run(const std::string &source, ErrorReporter &reporter) {
-  reporter.report(SimpleError{"Not Implemented Yet!"});
-  std::cout << source << '\n';
+  Lexer lexer{source, reporter};
+  for (const auto &token : lexer.scanTokens()) {
+    std::cout << token.lexeme << '\n';
+  }
 }
 
 void runFile(const char *file, ErrorReporter &reporter) {

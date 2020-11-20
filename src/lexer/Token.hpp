@@ -65,7 +65,7 @@ struct Token {
   const int line;
   std::variant<std::string, double> token_data;
 
-  Token(TokenType type, std::string lexeme, int line);
-  Token(TokenType type, std::string lexeme, int line, double double_data);
-  Token(TokenType type, std::string lexeme, int line, std::string string_data);
+  Token(TokenType type, std::string lexeme, int line) noexcept;
+  Token(TokenType type, std::string lexeme, int line, double double_data) noexcept;
+  Token(TokenType type, std::string lexeme, int line, std::string string_data) noexcept;
 };
