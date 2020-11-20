@@ -1,6 +1,7 @@
 #include "Lexer.hpp"
 #include "UnexpectedCharacter.hpp"
 #include "UnterminatedStringError.hpp"
+#include <unordered_map>
 
 namespace lexer {
 
@@ -98,6 +99,32 @@ void Lexer::number() noexcept {
   addToken(TokenType::Number, std::stod(text));
 }
 
+// Yeah, this might be a bit ugly, but ultimately I don't think is really
+// gonna cause many issues
+const static std::unordered_map<std::string, TokenType> keywords{
+    {"and", TokenType::And},       {"class", TokenType::Class},
+    {"else", TokenType::Else},     {"false", TokenType::False},
+    {"for", TokenType::For},       {"fun", TokenType::Fun},
+    {"if", TokenType::If},         {"nil", TokenType::Nil},
+    {"or", TokenType::Or},         {"print", TokenType::Print},
+    {"return", TokenType::Return}, {"super", TokenType::Super},
+    {"this", TokenType::This},     {"true", TokenType::True},
+    {"var", TokenType::Var},       {"while", TokenType::While}};
+
+void Lexer::identifier() noexcept {
+  while (isalnum(peek())) {
+    advance();
+  }
+
+  const auto text = source.substr(start, current - start);
+  const auto it = keywords.find(text);
+  if (it != keywords.end()) {
+    addToken(it->second);
+  } else {
+    addToken(TokenType::Identifier, text);
+  }
+}
+
 void Lexer::scanToken() noexcept {
   const auto c = advance();
   switch (c) {
@@ -180,6 +207,8 @@ void Lexer::scanToken() noexcept {
   default: {
     if (isDigit(c)) {
       number();
+    } else if (isalpha(c)) {
+      identifier();
     } else {
       UnexpectedCharacter error{c};
       error.setLine(line);

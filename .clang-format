@@ -3,4 +3,3 @@ IndentWidth: 2
 AllowShortFunctionsOnASingleLine: None
 AllowShortBlocksOnASingleLine: Never
 BreakConstructorInitializers: BeforeComma
-

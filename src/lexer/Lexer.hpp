@@ -34,6 +34,8 @@ class Lexer {
 
   void number() noexcept;
 
+  void identifier() noexcept;
+
   void scanToken() noexcept;
 
 public:
