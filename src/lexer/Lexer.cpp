@@ -15,17 +15,17 @@ char Lexer::advance() noexcept {
 }
 
 void Lexer::addToken(TokenType type) noexcept {
-  const auto text = source.substr(start, current);
+  const auto text = source.substr(start, current - start);
   tokens.emplace_back(Token{type, text, line});
 }
 
 void Lexer::addToken(TokenType type, double double_data) noexcept {
-  const auto text = source.substr(start, current);
+  const auto text = source.substr(start, current - start);
   tokens.emplace_back(Token{type, text, line, double_data});
 }
 
 void Lexer::addToken(TokenType type, std::string string_data) noexcept {
-  const auto text = source.substr(start, current);
+  const auto text = source.substr(start, current - start);
   tokens.emplace_back(Token{type, text, line, std::move(string_data)});
 }
 
