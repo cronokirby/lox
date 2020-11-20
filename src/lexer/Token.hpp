@@ -26,6 +26,7 @@ enum class TokenType {
   BangEqual,
   Equal,
   EqualEqual,
+  Greater,
   GreaterEqual,
   Less,
   LessEqual,

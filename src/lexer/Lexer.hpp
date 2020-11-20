@@ -20,9 +20,15 @@ class Lexer {
 
   char advance() noexcept;
 
+  char peek() noexcept;
+
+  bool match(char) noexcept;
+
   void addToken(TokenType) noexcept;
   void addToken(TokenType, double) noexcept;
   void addToken(TokenType, std::string) noexcept;
+
+  void string() noexcept;
 
   void scanToken() noexcept;
 
