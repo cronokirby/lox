@@ -9,12 +9,7 @@ include_directories(include)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-# We include all of the source files starting from src, and
-# CONFIGURE_DEPENDS makes it so that whenever this changes, we can just
-# run `make`, without having to rerun `cmake` all over again.
-file(GLOB_RECURSE sources CONFIGURE_DEPENDS "src/*.cpp")
-
 # Create a lox executable from the sources we've gathered
-add_executable(lox ${sources})
+add_executable(lox src/main.cpp src/Error.cpp src/ErrorReporter.cpp src/SimpleError.cpp)
 # Standard, but strict compiler options
 target_compile_options(lox PRIVATE -Werror -Wall -Wextra)

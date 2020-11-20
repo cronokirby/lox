@@ -1,4 +1,5 @@
-#include "lib.hpp"
+#include "ErrorReporter.hpp"
+#include "SimpleError.h"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -21,16 +22,17 @@ std::string readFile(const char *file) {
   return contents;
 }
 
-void run(const std::string &source) {
+void run(const std::string &source, ErrorReporter &reporter) {
+  reporter.report(SimpleError{"Not Implemented Yet!"});
   std::cout << source << '\n';
 }
 
-void runFile(const char *file) {
+void runFile(const char *file, ErrorReporter &reporter) {
   const auto contents = readFile(file);
-  run(contents);
+  run(contents, reporter);
 }
 
-void runPrompt() {
+void runPrompt(ErrorReporter &reporter) {
   std::string line;
   for (;;) {
     std::cout << "> ";
@@ -38,7 +40,7 @@ void runPrompt() {
       std::cout << std::endl;
       break;
     }
-    run(line);
+    run(line, reporter);
   }
 }
 
@@ -47,10 +49,14 @@ int main(const int argc, const char **argv) {
     std::cout << "Usage: lox <script>\n";
     return 64;
   }
+  ErrorReporter reporter;
   if (argc == 2) {
-    runFile(argv[1]);
+    runFile(argv[1], reporter);
+    if (reporter.hadError()) {
+      return 65;
+    }
   } else {
-    runPrompt();
+    runPrompt(reporter);
   }
   return 0;
 }

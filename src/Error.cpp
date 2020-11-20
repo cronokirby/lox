@@ -1,7 +1,17 @@
 #include "Error.hpp"
 
-Error::Error(int line) : line{line} {
+int Error::getLine() const noexcept {
+  return _line;
 }
 
-Error::Error(int line, const char *file) : line{line}, file{file} {
+void Error::setLine(int line) noexcept {
+  _line = line;
+}
+
+const std::string& Error::getFile() const {
+  return _file;
+}
+
+void Error::setFile(const char *file) {
+  _file = file;
 }

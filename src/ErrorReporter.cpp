@@ -1,11 +1,11 @@
 #include "ErrorReporter.hpp"
 #include <iostream>
 
-void ErrorReporter::report(const Error &error) {
+void ErrorReporter::report(const Error &error) noexcept {
   _hadError = true;
 
-  std::cerr << "\e[1;31mERROR\e0m [" << error.file << " line " << error.line
-            << "]: " << error.messsage();
+  std::cerr << "\033[1;31mERROR\033[0m [" << error.getFile() << " line " << error.getLine()
+            << "]: " << error.message() << std::endl;
 }
 
 bool ErrorReporter::hadError() const noexcept {
