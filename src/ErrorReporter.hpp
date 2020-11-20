@@ -9,7 +9,12 @@
 class ErrorReporter {
   bool _hadError{false};
 
+  std::string file;
+
 public:
+  ErrorReporter() = default;
+  explicit ErrorReporter(std::string file);
+
   /// Report that an error happened
   ///
   /// @param error the error we want to raise

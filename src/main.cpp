@@ -54,13 +54,15 @@ int main(const int argc, const char **argv) {
     std::cout << "Usage: lox <script>\n";
     return 64;
   }
-  ErrorReporter reporter;
   if (argc == 2) {
+    const auto file = argv[1];
+    ErrorReporter reporter{file};
     runFile(argv[1], reporter);
     if (reporter.hadError()) {
       return 65;
     }
   } else {
+    ErrorReporter reporter;
     runPrompt(reporter);
   }
   return 0;

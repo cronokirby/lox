@@ -4,8 +4,11 @@
 void ErrorReporter::report(const Error &error) noexcept {
   _hadError = true;
 
-  std::cerr << "\033[1;31mERROR\033[0m [" << error.getFile() << " line "
-            << error.getLine() << "]: ";
+  std::cerr << "\033[1;31mERROR\033[0m [";
+  if (!file.empty()) {
+    std::cerr << file << " ";
+  }
+  std::cerr << error.getLine() << "]: ";
   error.description(std::cerr);
   std::cerr << std::endl;
 }
@@ -16,4 +19,8 @@ bool ErrorReporter::hadError() const noexcept {
 
 void ErrorReporter::reset() noexcept {
   _hadError = false;
+}
+
+ErrorReporter::ErrorReporter(std::string file)
+    : file(std::move(file)) {
 }

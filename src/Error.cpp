@@ -7,11 +7,3 @@ int Error::getLine() const noexcept {
 void Error::setLine(int line) noexcept {
   _line = line;
 }
-
-const std::string &Error::getFile() const {
-  return _file;
-}
-
-void Error::setFile(const char *file) {
-  _file = file;
-}

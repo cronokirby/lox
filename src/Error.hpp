@@ -8,7 +8,6 @@
 /// the metadata about location can be handled here in the parent.
 class Error {
   int _line{0};
-  std::string _file;
 
 public:
   /// Output the description of this error to a given output
@@ -18,9 +17,9 @@ public:
   /// @param out the output stream to use
   virtual void description(std::ostream &out) const noexcept = 0;
 
+  /// Get the line this error occurred on
   int getLine() const noexcept;
-  void setLine(int line) noexcept;
 
-  const std::string &getFile() const;
-  void setFile(const char *file);
+  /// Set the line this error occurred on
+  void setLine(int line) noexcept;
 };
