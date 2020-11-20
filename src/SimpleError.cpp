@@ -2,10 +2,10 @@
 
 #include <utility>
 
-std::string SimpleError::message() const noexcept {
-  return _message;
+SimpleError::SimpleError(std::string description)
+    : _description(std::move(description)) {
 }
 
-SimpleError::SimpleError(std::string message)
-    : _message(std::move(message)) {
+void SimpleError::description(std::ostream &out) const noexcept {
+  out << _description;
 }

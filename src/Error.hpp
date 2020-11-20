@@ -11,8 +11,12 @@ class Error {
   std::string _file;
 
 public:
-  /// Get the message returned by this string
-  virtual std::string message() const noexcept = 0;
+  /// Output the description of this error to a given output
+  ///
+  /// An output is used instead of an explicit string for ease of formatting
+  ///
+  /// @param out the output stream to use
+  virtual void description(std::ostream &out) const noexcept = 0;
 
   int getLine() const noexcept;
   void setLine(int line) noexcept;

@@ -19,7 +19,7 @@ public:
   /// @param unexpected the unexpected character
   explicit UnexpectedCharacter(char unexpected);
 
-  std::string message() const noexcept override;
+  void description(std::ostream &out) const noexcept override;
 };
 
 } // namespace lexer

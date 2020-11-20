@@ -1,13 +1,13 @@
 #include "UnexpectedCharacter.hpp"
+#include <iostream>
 
 namespace lexer {
 
 UnexpectedCharacter::UnexpectedCharacter(char unexpected)
     : unexpected(unexpected) {
 }
-
-std::string UnexpectedCharacter::message() const noexcept {
-  return std::string{"Unexpected Character: "} + unexpected;
+void UnexpectedCharacter::description(std::ostream &out) const noexcept {
+  out << "Unexpected Character: " << unexpected;
 }
 
 } // namespace lexer
